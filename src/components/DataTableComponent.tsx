@@ -35,14 +35,14 @@ const DataTableComponent = () => {
     const options = {
         filter: false,
         elevation: 0,
-        selectableRows: "none",
+        selectableRows: undefined,
         viewColumns: false,
         download: false,
         print: false,
         pagination: false,
         search: false,
         sort: false,
-        responsive: 'standard',
+        responsive: undefined,
     };
 
     return (
