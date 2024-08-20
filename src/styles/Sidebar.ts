@@ -33,6 +33,22 @@ const CustomButton = styledMui(Button)<Props>(({ buttoncolor, textcolor, fontWei
     backgroundColor: buttoncolor,
     color: textcolor,
   },
+
+  '@media (max-width: 1200px)': {
+    width: '150px',
+    fontSize: '12px',
+  },
+  '@media (max-width: 768px)': {
+    width: '100px',
+    fontSize: '10px',
+    padding: '8px',
+  },
+  '@media (max-width: 480px)': {
+    width: '80px',
+    fontSize: '8px',
+    fontWeight: '700',
+    padding: '4px',
+  },
 }));
 
 export { SidebarContainer, CustomButton };

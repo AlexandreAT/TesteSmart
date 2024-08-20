@@ -1,52 +1,35 @@
 import { useSelector } from 'react-redux';
 import MUIDataTable from "mui-datatables";
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CharacterData, Subtitle, DataTableContainer } from '../styles/MainContent';
+import { ThemeProvider } from '@mui/material/styles';
+import { themeOverrides } from '../styles/TableTheme';
+import { Subtitle, DataTableContainer } from '../styles/MainContent';
 
 const DataTableComponent = () => {
-    const { characterData, theme } = useSelector((rootReducer: any) => rootReducer.characterReducer);
+    const { currentCharacter, characterData, theme } = useSelector((rootReducer: any) => rootReducer.characterReducer);
 
-    // const themeOverrides = createTheme({
-    //     components: {
-    //         MuiTableHead: {
-    //             styleOverrides: {
-    //                 root: {
-    //                     '& th': {
-    //                         backgroundColor: '#4C4C4C',
-    //                         color: '#ffffff',
-    //                         fontWeight: '700',
-    //                         borderBottomColor: '#4C4C4C',
-    //                         paddingTop: '0px',
-    //                         paddingBottom: '0px',
-    //                     },
-    //                 },
-    //             },
-    //         },
-    //         MuiTableBody: {
-    //             styleOverrides: {
-    //                 root: {
-    //                     '& td': {
-    //                         backgroundColor: '#2E2E2E',
-    //                         color: '#ffffff',
-    //                         borderBottom: 'none',
-    //                         textAlign: 'center',
-    //                         padding: '8px',
-    //                     },
-    //                 },
-    //             },
-    //         },
-    //     },
-    // });
+    let genderColumn = { name: "Gender", options: { filter: false } };
+    let genderValue = characterData.gender;
+
+    if (currentCharacter === "Squid Costume Morty") {
+        genderColumn = { name: "Type", options: { filter: false } };
+        genderValue = characterData.type;
+    }
 
     const columns = [
         { name: "Status", options: { filter: false } },
         { name: "Species", options: { filter: false } },
-        { name: "Gender", options: { filter: false } },
+        genderColumn,
         { name: "Origin", options: { filter: false } },
     ];
 
+    let originName = '';
+    if (characterData) {
+        originName = characterData.origin.name;
+    }
+    const trimmedOriginName = originName.split(' ')[0];
+
     const data = characterData ? [
-        [characterData.status, characterData.species, characterData.gender, characterData.origin.name],
+        [characterData.status, characterData.species, genderValue, trimmedOriginName],
     ] : [];
 
     const options = {
@@ -58,24 +41,25 @@ const DataTableComponent = () => {
         print: false,
         pagination: false,
         search: false,
-        responsive: "standard",
+        sort: false,
+        responsive: 'standard',
     };
 
     return (
         characterData && (
-            <CharacterData>
-                <Subtitle themeColor={theme}>Dados do personagem</Subtitle>
+            <div>
+                <Subtitle themecolor={theme}>Dados do personagem</Subtitle>
                 <DataTableContainer>
-                    {/* <ThemeProvider theme={themeOverrides}> */}
+                    <ThemeProvider theme={themeOverrides}>
                         <MUIDataTable
                             title={""}
                             data={data}
                             columns={columns}
                             options={options}
                         />
-                    {/* </ThemeProvider> */}
+                    </ThemeProvider>
                 </DataTableContainer>
-            </CharacterData>
+            </div>
         )
     );
 }

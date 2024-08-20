@@ -10,6 +10,7 @@ const GetCharacter = gql`
       status
       species
       gender
+      type
       episode {
         id
       }
