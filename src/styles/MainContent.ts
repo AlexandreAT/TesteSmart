@@ -94,9 +94,14 @@ const CharacterImg = styled.img<{ themecolor: string }>`
   box-shadow: 0 0 15px 1px ${({themecolor}) => themecolor};
   border-radius: 50%;
 
-  @media (max-width: 1200px) {
-    width: 200px;
-    height: 200px;
+  @media (max-width: 1350px) {
+    width: 250px;
+    height: 250px;
+  }
+
+  @media (max-width: 990px) {
+    width: 180px;
+    height: 180px;
   }
   
   @media (max-width: 480px) {
